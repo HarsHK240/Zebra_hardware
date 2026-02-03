@@ -1,34 +1,36 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <!-- Renamed the macro for clarity and added use_sim_time parameter -->
   <xacro:macro name="diffbot_ros2_control" params="name use_sim_time:=false use_mock_hardware:=false prefix:=''">
 
     <ros2_control name="${name}" type="system">
 
-      <!-- ***** NEW PART FOR GAZEBO ***** -->
-      <xacro:if value="${use_sim_time}">
-        <hardware>
-          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-        </hardware>
-      </xacro:if>
-
       <xacro:unless value="${use_sim_time}">
+        
         <xacro:unless value="${use_mock_hardware}">
           <hardware>
-            <plugin>ros2_control_demo_example_2/DiffBotSystemHardware</plugin>
-            <param name="example_param_hw_start_duration_sec">0</param>
-            <param name="example_param_hw_stop_duration_sec">3.0</param>
+            <plugin>zebra/ZebraSystemHardware</plugin>
+            <param name="loop_rate">30</param>
+            <param name="device">/dev/ttyACM0</param>
+            <param name="baud_rate">115200</param>
+            <param name="timeout_ms">1000</param>
+            <param name="enc_counts_per_rev">2800</param>
           </hardware>
         </xacro:unless>
+
         <xacro:if value="${use_mock_hardware}">
           <hardware>
-            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-            <!-- <plugin>mock_components/GenericSystem</plugin>
-            <param name="calculate_dynamics">true</param> -->
+            <plugin>mock_components/GenericSystem</plugin>
+            <param name="calculate_dynamics">true</param>
           </hardware>
         </xacro:if>
       </xacro:unless>
+
+      <xacro:if value="${use_sim_time}">
+         <hardware>
+          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </hardware>
+      </xacro:if>
 
       <joint name="${prefix}left_wheel_back_joint">
         <command_interface name="velocity"/>
@@ -50,6 +52,7 @@
         <state_interface name="position"/>
         <state_interface name="velocity"/>
       </joint>
+
     </ros2_control>
 
   </xacro:macro>

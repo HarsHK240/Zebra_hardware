@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
-<robot name="my_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-	
-  <!-- Base link -->
+<robot name="zebra" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<xacro:include filename="$(find zebra)/urdf/zebra.ros2_control.xacro" />
+  
   <link name="base_link">
     <visual>
       <geometry><box size="0.24 0.21 0.14"/></geometry>
@@ -14,17 +15,17 @@
     </collision>
     <inertial>
       <origin xyz="0 0 0.0" rpy="0 0 0"/>
-      <mass value="0.2"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.02"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.01061" ixy="0" ixz="0" iyy="0.01286" iyz="0" izz="0.0169"/>
     </inertial>
   </link>
 
   <!-- Gazebo base link properties -->
-  <gazebo reference="base_link">
+  <!-- <gazebo reference="base_link">
     <material>Gazebo/Blue</material>
     <mu1>0.8</mu1>
-    <mu2>0.8</mu2>
-  </gazebo>
+    <mu2>0.1</mu2>
+  </gazebo> -->
 
   <!-- Wheels -->
   <link name="left_wheel_back">
@@ -39,16 +40,17 @@
     </collision>
     <inertial>
       <origin xyz="0 0 0.0"/>
-      <mass value="0.02"/>  
-      <inertia ixx="0.00013" ixy="0" ixz="0" iyy="0.00023" iyz="0" izz="0.00013"/>
+      <mass value="0.2"/>  
+      <inertia ixx="0.000167" ixy="0" ixz="0" iyy="0.000167" iyz="0" izz="0.00025"/>
     </inertial>
   </link>
 
-  <gazebo reference="left_wheel_back">
+  <!-- <gazebo reference="left_wheel_back">
     <material>Gazebo/Black</material>
-    <mu1>100.0</mu1>
-    <mu2>1000.0</mu2>
-  </gazebo>
+    <mu1>100</mu1>
+    <mu2>1</mu2>
+   
+  </gazebo> -->
 
   <link name="right_wheel_back">
     <visual>
@@ -62,16 +64,17 @@
     </collision>
     <inertial>
       <origin xyz="0 0 0.0"/>
-      <mass value="0.02"/>
-      <inertia ixx="0.00013" ixy="0" ixz="0" iyy="0.00023" iyz="0" izz="0.00013"/>
+      <mass value="0.2"/>  
+      <inertia ixx="0.000167" ixy="0" ixz="0" iyy="0.000167" iyz="0" izz="0.00025"/>
     </inertial>
   </link>
 
-  <gazebo reference="right_wheel_back">
+  <!-- <gazebo reference="right_wheel_back">
     <material>Gazebo/Black</material>
-    <mu1>100.0</mu1>
-    <mu2>1000.0</mu2>
-  </gazebo>
+    <mu1>100</mu1>
+    <mu2>1</mu2>
+   
+  </gazebo> -->
 
   <link name="left_wheel_front">
     <visual>
@@ -85,16 +88,10 @@
     </collision>
     <inertial>
       <origin xyz="0 0 0.0"/>
-      <mass value="0.02"/>
-      <inertia ixx="0.00013" ixy="0" ixz="0" iyy="0.00023" iyz="0" izz="0.00013"/>
+      <mass value="0.2"/>  
+      <inertia ixx="0.000167" ixy="0" ixz="0" iyy="0.000167" iyz="0" izz="0.00025"/>
     </inertial>
   </link>
-
-  <gazebo reference="left_wheel_front">
-    <material>Gazebo/Black</material>
-    <mu1>100.0</mu1>
-    <mu2>1000.0</mu2>
-  </gazebo>
 
   <link name="right_wheel_front">
     <visual>
@@ -108,16 +105,17 @@
     </collision>
     <inertial>
       <origin xyz="0 0 0.0"/>
-      <mass value="0.02"/>
-      <inertia ixx="0.00013" ixy="0" ixz="0" iyy="0.00023" iyz="0" izz="0.00013"/>
+      <mass value="0.2"/>  
+      <inertia ixx="0.000167" ixy="0" ixz="0" iyy="0.000167" iyz="0" izz="0.00025"/>
     </inertial>
   </link>
 
-  <gazebo reference="right_wheel_front">
+  <!-- <gazebo reference="right_wheel_front">
     <material>Gazebo/Black</material>
-    <mu1>10.00</mu1>
-    <mu2>1000.0</mu2>
-  </gazebo>
+    <mu1>100</mu1>
+    <mu2>1</mu2>
+   
+  </gazebo> -->
 
   <!-- Wheel joints -->
   <joint name="left_wheel_back_joint" type="continuous">
@@ -167,7 +165,7 @@
     <child link="camera_link_optical" />
   </joint>
 
-  <gazebo reference="camera_link">
+  <!-- <gazebo reference="camera_link">
     <sensor name="rgbd_camera" type="depth">
       <update_rate>30</update_rate>
       <camera>
@@ -196,7 +194,7 @@
         <point_cloud_topic_name>depth/points</point_cloud_topic_name>
       </plugin>
     </sensor>
-  </gazebo>
+  </gazebo> -->
   <!-- <link name="gps_link">
     <sensor name="navsat" type="navsat">
       <always_on>true</always_on>
@@ -221,7 +219,7 @@
       </navsat>
     </sensor>
   </link> -->
-  <link name ="gps_link">   
+  <!-- <link name ="gps_link">   
   </link>
   <joint name="gps_joint" type="fixed">
     <parent link="base_link"/>
@@ -237,9 +235,9 @@
         <frame_name>gps_link</frame_name>
       </plugin>
     </sensor>
-  </gazebo>
+  </gazebo> -->
     <!-- IMU -->
-  <gazebo reference="base_link">
+  <!-- <gazebo reference="base_link">
     <sensor name="imu_sensor" type="imu">
       <always_on>true</always_on>
       <update_rate>50</update_rate>
@@ -247,7 +245,7 @@
         <ros><namespace>/</namespace><remapping>~/out:=imu</remapping></ros>
         <frame_name>base_link</frame_name>
       </plugin>
-    </sensor>
+    </sensor> -->
   <!-- GPS -->
     <!-- <sensor name="gps_sensor" type="gps">
       <always_on>true</always_on>
@@ -257,9 +255,9 @@
         <frame_name>base_link</frame_name>
       </plugin>
     </sensor> -->
-  </gazebo>
+  <!-- </gazebo> -->
   
-  <gazebo>
+  <!-- <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
       <parameters>$(find my_bot_description)/config/my_bot_controllers.yaml</parameters>
       <ros>
@@ -267,14 +265,19 @@
         <remapping>/diff_drive_controller/odom:=/odom_garbage</remapping>
       </ros>
     </plugin>
-  </gazebo>
+  </gazebo> -->
 <!-- 
     <xacro:diffbot_ros2_control
       name="diffbot_system"
       prefix=""
       use_mock_hardware="true" />
   -->
-
+    <xacro:diffbot_ros2_control
+    name="ZebraSystemHardware"
+    prefix=""
+    use_sim_time="false"
+    use_mock_hardware="false" 
+  />
 
 </robot>
 

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mars">
+    <xacro:arg name="use_sim_time" default="true" />
+    <!-- Include the Gazebo-specific ros2_control configuration -->
+    <xacro:include filename="$(find zebra)/urdf/zebra.ros2_control.xacro" />
+
+    <!-- Include the rest of your robot's description 
+         (assuming it's in a file like 'my_bot_parts.urdf' or similar) -->
+    <xacro:include filename="$(find zebra)/urdf/zebra.urdf" />
+
+    <!-- Instantiate the Gazebo ros2_control plugin -->
+    <!-- <xacro:diffbot_ros2_control name="ZebraSystemHardware" use_sim_time="false" use_mock_hardware="true" /> -->
+
+</robot>

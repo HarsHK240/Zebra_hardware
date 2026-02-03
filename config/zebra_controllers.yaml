@@ -19,9 +19,9 @@ diff_drive_controller:
     use_stamped_vel: false
     publish_rate: 50.0
     cmd_vel_timeout: 0.5
-    enable_odom_tf: false
-    odom_frame_id: odom1
+    enable_odom_tf: true
+    odom_frame_id: odom
     base_frame_id: base_link
-    cmd_vel_topic: cmd_vel
-    odom_topic: odom1
+    # cmd_vel_topic: cmd_vel
+    odom_topic: odom
 

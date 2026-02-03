@@ -1,0 +1,9 @@
+<library path="zebra_hardware">
+  <class name="zebra/ZebraSystemHardware" 
+         type="zebra::ZebraSystemHardware" 
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      The specific hardware interface for the Zebra differential drive robot.
+    </description>
+  </class>
+</library>
