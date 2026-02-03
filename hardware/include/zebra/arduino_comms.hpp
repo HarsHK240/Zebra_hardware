@@ -89,9 +89,9 @@ public:
     std::string response = send_msg("\r");
   }
 
-  void read_encoder_values(double &val_1, double &val_2)
+  bool read_encoder_values(double &val_1, double &val_2)
   {
-    if (!connected()) return;
+    if (!connected()) return false;
 
     // Check if data is available to avoid blocking forever
     if (serial_conn_.IsDataAvailable()) 
@@ -111,7 +111,8 @@ public:
                 std::stringstream ss(data_part);
                 
                 // Parse the two double values
-                ss >> val_1 >> val_2;
+                if (ss >> val_1 >> val_2) {
+                    return true;}
             }
         } 
         catch (const LibSerial::ReadTimeout&) 
@@ -123,6 +124,7 @@ public:
             // Ignore parsing errors
         }
     }
+    return false;
   }
   void set_motor_values(double val_1, double val_2)
   {

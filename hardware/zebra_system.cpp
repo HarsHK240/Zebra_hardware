@@ -148,8 +148,8 @@ hardware_interface::return_type ZebraSystemHardware::read(
   double right_ticks = 0.0;
 
   // 1. Get raw ticks from Arduino
-  comms_.read_encoder_values(left_ticks, right_ticks);
-
+  if(comms_.read_encoder_values(left_ticks, right_ticks))
+{
   // 2. Convert Ticks -> Radians
   // Formula: (ticks / ticks_per_rev) * 2 * PI
   double left_rads = (left_ticks / cfg_.enc_counts_per_rev) * 2.0 * M_PI;
@@ -166,7 +166,7 @@ hardware_interface::return_type ZebraSystemHardware::read(
 
   // Note: We are not calculating velocity here. 
   // The diff_drive_controller will calculate velocity from position changes automatically.
-
+}
   return hardware_interface::return_type::OK;
 }
 
